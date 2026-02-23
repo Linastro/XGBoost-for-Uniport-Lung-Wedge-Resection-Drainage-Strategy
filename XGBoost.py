@@ -7,14 +7,14 @@ import os
 # 1. 页面基础配置 / Page Configuration
 # ==========================================
 st.set_page_config(
-    page_title="肺楔形切除术引流管预测 / Prediction of Drainage Tube in Pulmonary Wedge Resection",
+    page_title="机器学习肺楔形切除术引流管预测 / Machine Learning Prediction of Drainage Tube in Pulmonary Wedge Resection",
     page_icon="🫁",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
 # 标题 / Title
-st.title("🫁 肺楔形切除术不留置引流管成功概率预测 / Prediction of Success Probability Without Drainage After Pulmonary Wedge Resection")
+st.title("🫁 机器学习肺楔形切除术不留置引流管成功概率预测 / Machine Learning Prediction of Success Probability Without Drainage After Pulmonary Wedge Resection")
 st.markdown("---")
 
 # ==========================================
