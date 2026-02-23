@@ -65,7 +65,7 @@ with st.form("prediction_form"):
     st.subheader("🫁 二、术前肺功能 / 2. Preoperative Pulmonary Function")
     col1, col2, col3 = st.columns(3)
     with col1:
-        FEV1_residual = st.number_input("术前 FEV1 实测值与预计值差值 (Preoperative FEV1 residual)", min_value=0.0, step=0.01, value=2.5)
+        FEV1_residual = st.number_input("术前 FEV1 实测值与预计值差值 (Preoperative FEV1 residual, L)", min_value=0.0, step=0.01, value=2.5)
     with col2:
         FEV1_predicted = st.number_input("术前 FEV1 预计值 (%) (Preoperative FEV1 predicted (%))", min_value=0.0, max_value=200.0, step=0.1, value=85.0)
     with col3:
@@ -82,8 +82,8 @@ with st.form("prediction_form"):
         Operation_time = st.number_input("手术时间 (Operation time, min)", min_value=0.0, step=1.0, value=60.0)
     with col2:
         Blood_loss = st.number_input("术中失血量 (Intraoperative blood loss, ml)", min_value=0.0, step=1.0, value=10.0)
-        Hemo_filament = st.radio("止血材料-丝状 (Filament type)", options=[0, 1], format_func=lambda x: "未使用 / Not used" if x == 0 else "使用 / Used", horizontal=True)
-        Hemo_membrane = st.radio("止血材料-膜状 (Membrane type)", options=[0, 1], format_func=lambda x: "未使用 / Not used" if x == 0 else "使用 / Used", horizontal=True)
+        Hemo_filament = st.radio("止血材料-纤丝类 (Filament type)", options=[0, 1], format_func=lambda x: "未使用 / Not used" if x == 0 else "使用 / Used", horizontal=True)
+        Hemo_membrane = st.radio("止血材料-膜类 (Membrane type)", options=[0, 1], format_func=lambda x: "未使用 / Not used" if x == 0 else "使用 / Used", horizontal=True)
 
     st.markdown("---")
     
@@ -91,18 +91,18 @@ with st.form("prediction_form"):
     st.subheader("🧪 四、术前实验室检查 / 4. Preoperative Laboratory Tests")
     col1, col2, col3 = st.columns(3)
     with col1:
-        WBC = st.number_input("白细胞计数 (Preoperative white blood cell count)", min_value=0.0, step=0.01, value=6.0)
-        Hb = st.number_input("血红蛋白 (Preoperative hemoglobin)", min_value=0.0, step=0.1, value=130.0)
-        PLT = st.number_input("血小板 (Preoperative platelets)", min_value=0.0, step=1.0, value=200.0)
+        WBC = st.number_input("白细胞计数 (Preoperative white blood cell count, 10^9/L)", min_value=0.0, step=0.01, value=6.0)
+        Hb = st.number_input("血红蛋白 (Preoperative hemoglobin, g/L)", min_value=0.0, step=0.1, value=130.0)
+        PLT = st.number_input("血小板 (Preoperative platelets， 10^9/L)", min_value=0.0, step=1.0, value=200.0)
     with col2:
-        ALT = st.number_input("谷丙转氨酶 (Preoperative ALT)", min_value=0.0, step=0.1, value=20.0)
-        AST = st.number_input("谷草转氨酶 (Preoperative AST)", min_value=0.0, step=0.1, value=20.0)
-        Total_protein = st.number_input("总蛋白 (Preoperative total protein)", min_value=0.0, step=0.1, value=70.0)
+        ALT = st.number_input("谷丙转氨酶 (Preoperative ALT, U/L)", min_value=0.0, step=0.1, value=20.0)
+        AST = st.number_input("谷草转氨酶 (Preoperative AST, U/L)", min_value=0.0, step=0.1, value=20.0)
+        Total_protein = st.number_input("总蛋白 (Preoperative total protein, g/L)", min_value=0.0, step=0.1, value=70.0)
     with col3:
-        Albumin = st.number_input("白蛋白 (Preoperative albumin)", min_value=0.0, step=0.1, value=40.0)
-        K = st.number_input("血钾 (Preoperative potassium)", min_value=0.0, max_value=10.0, step=0.01, value=4.0)
-        Ca = st.number_input("血钙 (Preoperative calcium)", min_value=0.0, max_value=5.0, step=0.01, value=2.2)
-        Glucose = st.number_input("血糖 (Preoperative glucose)", min_value=0.0, step=0.01, value=5.0)
+        Albumin = st.number_input("白蛋白 (Preoperative albumin, g/L)", min_value=0.0, step=0.1, value=40.0)
+        K = st.number_input("血钾 (Preoperative potassium, mmol/L)", min_value=0.0, max_value=10.0, step=0.01, value=4.0)
+        Ca = st.number_input("血钙 (Preoperative calcium, mmol/L)", min_value=0.0, max_value=5.0, step=0.01, value=2.2)
+        Glucose = st.number_input("血糖 (Preoperative glucose, mmol/L)", min_value=0.0, step=0.01, value=5.0)
 
     st.markdown("---")
     
@@ -151,14 +151,10 @@ if submitted:
                 
                 with m_col:
                     # 根据概率高低显示不同颜色 / Display different colors based on probability level
-                    if prob_percent >= 70:
+                    if prob_percent >= 50:
                         st.success(f"### 不留置引流管成功概率 / Success Probability Without Drainage Tube")
                         st.markdown(f"<h1 style='text-align: center; color: #0f766e;'>{prob_percent:.1f}%</h1>", unsafe_allow_html=True)
                         st.info("💡 提示：成功概率较高，建议结合临床情况综合判断。 / Tip: High success probability, recommended to comprehensively judge based on clinical situation.")
-                    elif prob_percent >= 40:
-                        st.warning(f"### 不留置引流管成功概率 / Success Probability Without Drainage Tube")
-                        st.markdown(f"<h1 style='text-align: center; color: #d97706;'>{prob_percent:.1f}%</h1>", unsafe_allow_html=True)
-                        st.info("💡 提示：成功概率中等，需谨慎评估。 / Tip: Moderate success probability, need to evaluate carefully.")
                     else:
                         st.error(f"### 不留置引流管成功概率 / Success Probability Without Drainage Tube")
                         st.markdown(f"<h1 style='text-align: center; color: #dc2626;'>{prob_percent:.1f}%</h1>", unsafe_allow_html=True)
