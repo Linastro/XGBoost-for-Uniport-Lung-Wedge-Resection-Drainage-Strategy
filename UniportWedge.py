@@ -39,7 +39,7 @@ if os.path.exists(logo_path):
     )
     st.markdown("---")
 else:
-    st.warning("⚠️ 未找到 logo.png 文件，请确保图片与程序在同一文件夹下。")
+    st.warning("⚠️ 未找到 logo.png 文件，请确保图片与程序在同一文件夹下。 / Logo.png file not found, please ensure the image is in the same folder as the program.")
     st.markdown("---")
     
 # ==========================================
@@ -193,6 +193,20 @@ if submitted:
 
                     # 【关键修复】这里传入原生浮点而不是 numpy float32 / Pass native float instead of numpy float32
                     st.progress(prob)
+
+                # =======================================================
+                # 仅保留：研究人群和结局定义图片展示
+                # Only keep: Study Population and Outcome Definition Image Display
+                # =======================================================
+                st.markdown("---")
+                st.subheader("👥 研究人群和结局定义 / Study Population and Outcome Definition")
+                patients_outcome_path = os.path.join(current_dir, "Patients_and_Outcome.png")
+                if os.path.exists(patients_outcome_path):
+                    _, po_col, _ = st.columns([1, 2, 1])
+                    with po_col:
+                        st.image(patients_outcome_path, caption="研究人群和结局定义 / Study Population and Outcome Definition", use_container_width=True)
+                else:
+                    st.warning("⚠️ 未找到研究人群和结局定义图片 / Patients_and_Outcome.png not found.")
 
             except Exception as e:
                 st.error(f"预测过程中发生错误 / Error occurred during prediction：{str(e)}")
