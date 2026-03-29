@@ -4,3 +4,7 @@ pandas
 numpy
 scikit-learn
 lightgbm
+openai
+json
+base64
+os
