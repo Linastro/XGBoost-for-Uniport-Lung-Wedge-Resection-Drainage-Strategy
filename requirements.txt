@@ -6,3 +6,4 @@ scikit-learn
 lightgbm
 openai
 shap
+matplotlib
